@@ -1,0 +1,3 @@
+This is a trivial example of using the Heroku memcached by northscale add-on.  
+
+/set sets the counter.  Each page hit increments and displays.
