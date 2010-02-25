@@ -6,10 +6,6 @@ get '/' do
   erb :index
 end
 
-get '/flush' do
-  
-end
-
 get '/set' do
   $cache.set 'counter', 1, 0, false
   redirect '/'

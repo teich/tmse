@@ -9,6 +9,7 @@ rescue LoadError
 end
 
 require 'app'
+require 'memcache-auth'
 
 $cache = Memcached.new
 
