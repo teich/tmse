@@ -1,12 +1,16 @@
 require 'sinatra'
 
 get '/' do
-  $cache.increment 'counter'
+  begin
+    $cache.increment 'counter'
+  rescue Memcached::NotFound
+    $cache.set 'counter', 1, 0, false
+  end
   @hits = $cache.get('counter', false)
   erb :index
 end
 
-get '/set' do
-  $cache.set 'counter', 1, 0, false
+get '/flush' do
+  $cache.flush
   redirect '/'
 end
