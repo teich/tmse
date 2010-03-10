@@ -9,9 +9,9 @@ rescue LoadError
 end
 
 require 'app'
-require 'memcache-auth'
+require 'memcached'
 
-$cache = Memcached.new
+$cache = Memcached.new(ENV["MEMCACHE_SERVERS"])
 
 run Sinatra::Application
 
