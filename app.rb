@@ -1,12 +1,15 @@
-require 'sinatra'
+require 'dalli'
+
+if ENV['MEMCACHE_SERVERS']
+  $cache = Dalli::Client.new
+else
+  $cache = Dalli::Client.new('localhost:11211')
+end
 
 get '/' do
-  begin
-    $cache.increment 'counter'
-  rescue Memcached::NotFound
-    $cache.set 'counter', 1, 0, false
-  end
-  @hits = $cache.get('counter', false)
+  # $cache.increment 'counter'
+  $cache.set('counter', 1)
+  @hits = $cache.get('counter')
   erb :index
 end
 
